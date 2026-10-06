@@ -1,2 +1,48 @@
-# automated-scheduler
-Smart daily planner that builds your schedule from your tasks, deadlines, urgency and progress, while protecting time for sleep, meals and rest (The constraints and their weights will be determined by the user). Lighter loads on busy days, and every block explains why it's there.
+Automatic Scheduler
+A web-based day planner for college student-athletes who keep missing deadlines or starting assignments too late, not from carelessness, but because there is simply too much on their plate.
+Automatic Scheduler builds each day from your tasks (how long they take, how urgent they are, how much is already done) and your personal constraints. Hard constraints such as classes, practice, games, sleep and meals are never broken, and you can change any of them. Soft constraints such as urgency, grade weight and spreading work out decide how the remaining time is used.
+The first version targets college students active in extracurriculars, especially sports, and runs on the web.
+Guiding principle
+You stay in control, without the busywork. You only enter what's needed to get your first schedule; everything else starts from sensible defaults. When you want to change something, every constraint, weight and preference is in the Customization area, with simple sliders and presets like "Deadline crunch", "Balanced" and "Protect my rest".
+Sign-up asks for three things: your class schedule, your practices and games, and your wake and bed times (per day, or "same every day").
+Change any single day: adjust wake or bed time for a specific date whenever you want, without touching your weekly pattern.
+Rules appear when they matter: game recovery, pre-game protection, travel-day limits and exam prep only switch on once you add a game, trip or exam.
+How it works
+Daily capacity. Free time between wake and sleep, minus classes, athletics, meals, commute and required rest. Heavy days get a fatigue penalty, so fewer focus hours land on them.
+Task priority. Remaining hours (estimate × (1 − % complete)) against time left before the deadline, plus grade weight, difficulty and a manual boost.
+Placement. A greedy scheduler places the highest-priority work in the earliest feasible slot, respecting per-task daily limits, buffers, sleep and meals. Google OR-Tools CP-SAT can replace it later.
+Explanations. Every block says why it was placed where it is.
+Re-planning. The schedule updates when tasks finish, blocks are skipped, or new tasks arrive.
+Machine learning is used later only to learn personal estimates (real task durations, best focus hours, fatigue), which feed into the scheduler as inputs.
+Tech stack
+Layer	Choice
+Frontend	React + TypeScript + Vite, Tailwind CSS + shadcn/ui, FullCalendar, TanStack Query
+Backend	Python 3.12 + FastAPI, Pydantic, SQLAlchemy + Alembic
+Database / auth	PostgreSQL via Supabase (SQLite while prototyping)
+Scheduler	Pure-Python greedy algorithm, OR-Tools CP-SAT later
+AI	Claude API with tool use (chatbot, hour estimates, syllabus parsing)
+Testing	pytest, Vitest, Playwright
+Lint / format	Ruff, ESLint + Prettier
+CI / hosting	GitHub Actions; Vercel (frontend), Render or Railway (backend)
+Planned layout
+frontend/         React app
+backend/
+  app/
+    api/          FastAPI routes
+    models/       SQLAlchemy tables
+    schemas/      Pydantic shapes
+    scheduler/    capacity, priority, placement, explanations (pure Python)
+    chatbot/      tool definitions, prompt, message handler
+    importers/    .ics, syllabus scanning, Canvas (later)
+  tests/
+docs/             design notes
+Roadmap
+Phase	Focus
+0	Foundations: data model, rules, three hand-worked test days
+1	Core scheduler MVP: engine API, greedy placement, basic screens
+2	Living schedule: re-planning, time logging, deadline warnings, weekly view
+3	Integrations: calendar and Canvas import, notifications, burnout signals
+4	Chatbot: edit the schedule in plain language, with diff and undo
+5	Learning from the user: personal duration and energy estimates, solver upgrade
+Status
+Design phase. See docs/ for the full design notes.
