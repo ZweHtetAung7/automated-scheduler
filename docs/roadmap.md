@@ -8,6 +8,8 @@ Companion to [scheduler-design.md](scheduler-design.md), which has the formulas,
 
 ## Phase 0: Foundations (design first, before any code)
 
+**Status (Oct 6):** problem statement, platform, tech stack and constraints done. Data model drafted in [data-model.md](data-model.md); three test days drafted in [test-days.md](test-days.md), waiting for review.
+
 **Design**
 1. **Problem statement and target user.** One paragraph: who (e.g. a student-athlete with 4–5 classes), what pain (too many deadlines, no time sense), what success looks like (fewer missed deadlines, sleep protected).
 2. **Platform decision.** Recommended default: a web app first (works on phone and laptop, one codebase), with a mobile app later.
@@ -21,6 +23,8 @@ Companion to [scheduler-design.md](scheduler-design.md), which has the formulas,
 ---
 
 ## Phase 1: Core scheduler (MVP)
+
+**Status (Oct 6):** project skeleton built (FastAPI backend with the defaults in code, React + TypeScript frontend, CI on every push). Next: the scheduler engine.
 
 **Design**
 1. **Scheduler engine API.** Clean functions the UI (and later the chatbot) call: `add_task`, `update_task`, `add_event`, `move_event`, `set_preference`, `generate_schedule(date_range)`, `explain_block(block)`.

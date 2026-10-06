@@ -34,20 +34,22 @@ Machine learning is used later only to learn personal estimates (real task durat
 | Scheduler | Pure-Python greedy algorithm, OR-Tools CP-SAT later |
 | AI | Claude API with tool use (chatbot, hour estimates, syllabus parsing) |
 | Testing | pytest, Vitest, Playwright |
-| Lint / format | Ruff, ESLint + Prettier |
+| Lint / format | Ruff (Python), oxlint (TypeScript) |
 | CI / hosting | GitHub Actions; Vercel (frontend), Render or Railway (backend) |
 
-## Planned layout
+## Project layout
+
+Folders marked *(later)* don't exist yet.
 
 ```
 frontend/         React app
 backend/
   app/
     api/          FastAPI routes
-    models/       SQLAlchemy tables
-    schemas/      Pydantic shapes
-    scheduler/    capacity, priority, placement, explanations (pure Python)
-    chatbot/      tool definitions, prompt, message handler
+    models/       SQLAlchemy tables (later)
+    schemas/      Pydantic shapes (later)
+    scheduler/    defaults, capacity, priority, placement, explanations (pure Python)
+    chatbot/      tool definitions, prompt, message handler (later)
     importers/    .ics, syllabus scanning, Canvas (later)
   tests/
 docs/             design notes
@@ -64,6 +66,30 @@ docs/             design notes
 | 4 | Chatbot: edit the schedule in plain language, with diff and undo |
 | 5 | Learning from the user: personal duration and energy estimates, solver upgrade |
 
+## Running locally
+
+Requires Python 3.12+ with [uv](https://docs.astral.sh/uv/), and Node 22+.
+
+**Backend** (http://localhost:8000, API docs at `/docs`):
+```
+cd backend
+uv sync
+uv run uvicorn app.main:app --reload
+```
+
+**Frontend** (http://localhost:5173, forwards `/api` to the backend):
+```
+cd frontend
+npm install
+npm run dev
+```
+
+**Checks** (the same ones CI runs on every push):
+```
+cd backend && uv run ruff check . && uv run ruff format --check . && uv run pytest
+cd frontend && npm run lint && npm test && npm run build
+```
+
 ## Status
 
-Design phase. See `docs/` for the full design notes.
+Phase 1 started: project skeleton with backend, frontend and CI. Next: the core scheduler. See `docs/` for the full design notes.

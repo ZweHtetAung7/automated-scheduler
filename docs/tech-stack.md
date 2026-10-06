@@ -22,7 +22,7 @@ Chosen for: a 2.5-week build with an AI coding agent, a web app first, and Pytho
 | Calendar import | `icalendar` (.ics files) now; Google Calendar API later | .ics import is a cheap win without OAuth |
 | Background jobs | APScheduler | Start-of-day re-plan, reminders |
 | Testing | pytest (backend), Vitest (frontend), Playwright (end-to-end) | Your three Phase 0 test days become pytest cases |
-| Lint / format | Ruff (Python), ESLint + Prettier (TS) | Keeps agent-written code consistent |
+| Lint / format | Ruff (Python), oxlint (TS, comes with the Vite template) | Keeps agent-written code consistent |
 | Version control / CI | GitHub + GitHub Actions | Run tests on every push |
 | Hosting | Vercel (frontend), Render or Railway (backend), Supabase (DB) | Free or cheap tiers, simple deploys |
 
